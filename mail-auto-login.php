@@ -15,28 +15,29 @@ add_hook('EmailPreSend', 1, function($vars) {
     if (in_array($vars['messagename'], $message_names)) {
         $invoice_id = mysql_real_escape_string($vars['relid']);
     
-    $invoice = Capsule::table('tblinvoices')->where('id', $invoice_id)->first();    
+    	$invoice = Capsule::table('tblinvoices')->where('id', $invoice_id)->first();    
 	$userid = $invoice->userid;    
 	$cliente = Capsule::table('tblclients')->where('id', $userid)->first();
         
     
-    // Define WHMCS URL & AutoAuth Key
-    $whmcsurl = $CONFIG['SystemURL']."/dologin.php";
-    $autoauthkey = "abc123";
-    
-    $timestamp = time(); // Get current timestamp
-    $email = $cliente->email; // Clients Email Address to Login
-    $goto = 'viewinvoice.php?id='.$invoice_id;
-    
-    $hash = sha1($email . $timestamp . $autoauthkey); // Generate Hash
-    
-    // Generate AutoAuth URL & Redirect
-    $url = $whmcsurl . "?timestamp=".$timestamp."&email=".$email."&hash=".$hash."&goto=" . urlencode($goto);
-    
-    $merge_fields = [];
-    $merge_fields['linkauto'] = $url;
-   
-    return $merge_fields;
+	// Define WHMCS URL
+	$whmcsurl = $CONFIG['SystemURL']."/dologin.php";
+	//Clave especificada en el archivo configuration.php
+	$autoauthkey = "abc123";
+
+	$timestamp = time(); // Get current timestamp
+	$email = $cliente->email; // Clients Email Address to Login
+	$goto = 'viewinvoice.php?id='.$invoice_id;
+
+	$hash = sha1($email . $timestamp . $autoauthkey); // Generate Hash
+
+	// Generate AutoAuth URL & Redirect
+	$url = $whmcsurl . "?timestamp=".$timestamp."&email=".$email."&hash=".$hash."&goto=" . urlencode($goto);
+
+	$merge_fields = [];
+	$merge_fields['linkauto'] = $url;
+
+	return $merge_fields;
     }
     
 });
