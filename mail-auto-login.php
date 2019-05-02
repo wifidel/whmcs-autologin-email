@@ -23,7 +23,7 @@ add_hook('EmailPreSend', 1, function($vars) {
 	// Define WHMCS URL
 	$whmcsurl = $CONFIG['SystemURL']."/dologin.php";
 	//Clave especificada en el archivo configuration.php
-	$autoauthkey = "abc123";
+	$autoauthkey = "aquíunaclavesegura";
 
 	$timestamp = time(); // Get current timestamp
 	$email = $cliente->email; // Clients Email Address to Login
