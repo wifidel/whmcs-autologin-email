@@ -8,4 +8,6 @@ Debes incluir $autoauthkey = "aquíunaclavesegura"; en el archivo configuration.
 
 Una vez hecho esto podrás mostrar el link añadiendo {$linkauto} en cualquiera de las plantillas de email especificadas en el archivo mail-auto-login.php
 
+NOTA: Según WHMCS el enlace sólo es válido durante 15 minutos una vez que es generado.
+
 Un saludo.
